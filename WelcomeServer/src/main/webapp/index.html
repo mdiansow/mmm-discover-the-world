@@ -1,0 +1,42 @@
+<!doctype html>
+<html ng-app="ngAppDemo" ng-strict-di lang="en">
+<head>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="script.js"></script>
+    <style>
+        body{font-family:arial; font-size:12px;padding:10px;}
+        .postBody{ width:550px; border-bottom:dashed 2px #dedede}
+        .postBody a{color:#333333;text-decoration:none}
+        .postBody a:hover{color:#006699;background-color:#dedede}
+        .time{margin:10px 0px 10px 0px; color:#006699; }
+    </style>
+</head>
+
+<body>
+
+<h1>Parsing JSON with Angular JS Tutorial</h1>
+
+<div>
+    <div ng-controller="ngAppDemoController">
+        I can add: {{a}} + {{b}} = {{ a+b }}
+    </div>
+    <div ng-controller="toto">
+        I can add: {{a}} + {{c}} = {{ a/b }}
+    </div>
+    <div ng-controller="user">
+        <div ng-repeat="post in posts" class='postBody'>
+            <h2>Bonjour {{post.nom}} - {{post.prenom}}</h2>
+        </div>
+    </div>
+    <div ng-controller="car">
+        <div ng-repeat="post in posts" class='postBody'>
+            <h2><a href='{{post.url}}'>{{post.title}}</a></h2>
+
+            <div class='time'>{{post.time}} - {{post.author}}</div>
+            <p>{{post.description}}</p>
+            <img ng-src="{{post.banner}}" style='width:550px'/>
+        </div>
+    </div>
+</div>
+</body>
+</html>
