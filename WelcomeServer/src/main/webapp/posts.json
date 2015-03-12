@@ -1,0 +1,10 @@
+ [
+{ 
+"title":"Multiple Ajax Image Upload without Refreshing Page using Jquery.", 
+"url":"http://www.9lessons.info/2013/08/multiple-ajax-image-upload-refreshing.html",
+"banner":"https://lh5.googleusercontent.com/-VWIAbbjR1QM/Uf_v9v9LCbI/AAAAAAAAIAo/4ZhYhP3lcCg/s550/multiple.jpg",
+"description":"Today I am presenting the most important social networking feature called multiple ajax image upload without refreshing the page using jquery and PHP. We just modified few lines of code in jqery.form.js plugin and renamed that to jquery.wallform.js. This feature is one of the key feature in Wall Script sale, big thanks to Arun Sekar for this code trick.",
+"time":"Tuesday, August 6, 2013" ,
+"author":"Srinivas Tamada"
+}
+]
