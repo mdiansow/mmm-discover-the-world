@@ -165,6 +165,7 @@ public class MainActivity2 extends Activity {
 		switch (position) {
 		case 0:
 			fragment = new HomeFragment();
+            //MAP
 			break;
 		case 1:
 			fragment = new FindPeopleFragment();
