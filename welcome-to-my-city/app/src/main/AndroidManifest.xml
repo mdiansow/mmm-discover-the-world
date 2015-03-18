@@ -7,7 +7,8 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme2" >
+        android:theme="@style/AppTheme2"
+        android:name=".client.Common">
         <activity
             android:name="fr.istic.m2gla.mmm.MainActivity2"
             android:label="@string/app_name" >
@@ -17,9 +18,45 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="fr.istic.m2gla.mmm.chat_activities.MainActivity"
+            android:label="@string/app_name">
+        </activity>
+
+        <activity
+            android:name="fr.istic.m2gla.mmm.chat_activities.SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
+        <activity
+            android:name="fr.istic.m2gla.mmm.chat_activities.ChatActivity"
+            android:logo="@drawable/ic_contact_picture"></activity>
+
+        <provider
+            android:name="fr.istic.m2gla.mmm.chat_activities.DataProvider"
+            android:authorities="fr.istic.m2gla.mmm.provider"
+            android:exported="false" />
 
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <permission
+        android:name="fr.istic.m2gla.mmm.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="fr.istic.m2gla.mmm.permission.C2D_MESSAGE" />
+
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+
+    <receiver
+        android:name=".client.GcmBroadcastReceiver"
+        android:permission="com.google.android.c2dm.permission.SEND">
+        <intent-filter>
+            <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            <category android:name="fr.istic.m2gla.mmm.chat_activities" />
+        </intent-filter>
+    </receiver>
 </manifest>
