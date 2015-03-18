@@ -18,7 +18,7 @@ public class GcmUtil {
 
     private static final String TAG = "GcmUtil";
 
-    public static final String PROPERTY_REG_ID = "registration_id";
+    public static final String PROPERTY_REG_ID = "AIzaSyB5vQnIvMb-NunaxBII_IaW7s4s2pWkJjE";
     private static final String PROPERTY_APP_VERSION = "appVersion";
     private static final String PROPERTY_ON_SERVER_EXPIRATION_TIME = "onServerExpirationTimeMs";
 

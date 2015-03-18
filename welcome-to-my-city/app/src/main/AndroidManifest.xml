@@ -11,7 +11,7 @@
         android:name=".client.Common">
         <activity
             android:name="fr.istic.m2gla.mmm.MainActivity2"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,8 +20,7 @@
         </activity>
         <activity
             android:name="fr.istic.m2gla.mmm.chat_activities.MainActivity"
-            android:label="@string/app_name">
-        </activity>
+            android:label="@string/app_name"></activity>
 
         <activity
             android:name="fr.istic.m2gla.mmm.chat_activities.SettingsActivity"
@@ -37,14 +36,14 @@
 
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <permission
-        android:name="fr.istic.m2gla.mmm.permission.C2D_MESSAGE"
+        android:name="fr.istic.m2gla.mmm.client.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="fr.istic.m2gla.mmm.permission.C2D_MESSAGE" />
+    <uses-permission android:name="fr.istic.m2gla.mmm.client.permission.C2D_MESSAGE" />
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -52,11 +51,11 @@
 
 
     <receiver
-        android:name=".client.GcmBroadcastReceiver"
+        android:name="fr.istic.m2gla.mmm.client.GcmBroadcastReceiver"
         android:permission="com.google.android.c2dm.permission.SEND">
         <intent-filter>
             <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-            <category android:name="fr.istic.m2gla.mmm.chat_activities" />
+            <category android:name="fr.istic.m2gla.mmm.client" />
         </intent-filter>
     </receiver>
 </manifest>
