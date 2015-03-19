@@ -123,13 +123,13 @@ public class ChatActivity extends Activity implements MessagesFragment.OnFragmen
                     Bundle data = new Bundle();
                     data.putString("message", params[0]);
 
-                    if (params[1].equals("Echo")) {
+                    /*if (params[1].equals("Echo")) {
                         data.putString("action", "fr.istic.m2gla.mmm.ECHO");
                     } else if (params[1].equals("Broadcast")) {
                         data.putString("action", "fr.istic.m2gla.mmm.BROADCAST");
                     } else if (params[1].equals("Notification")) {
                         data.putString("action", "fr.istic.m2gla.mmm.NOTIFICATION");
-                    }
+                    }*/
 
 
                     String id = Integer.toString(msgId.incrementAndGet());
