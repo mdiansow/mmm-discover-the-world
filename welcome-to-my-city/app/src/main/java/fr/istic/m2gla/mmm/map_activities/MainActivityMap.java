@@ -22,16 +22,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import fr.istic.m2gla.mmm.R;
-import fr.istic.m2gla.mmm.client.Common;
-import fr.istic.m2gla.mmm.client.Constants;
-import fr.istic.m2gla.mmm.client.ServerUtilities;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
+import fr.istic.m2gla.mmm.R;
+import fr.istic.m2gla.mmm.client.Common;
+import fr.istic.m2gla.mmm.client.Constants;
 
 /**
  * MainActivity.
@@ -40,35 +37,35 @@ import java.util.List;
  */
 public class MainActivityMap extends Activity implements LocationListener{
 
-  private LocationManager locationManager;
+    private LocationManager locationManager;
     private Location location ;
-  private GoogleMap gMap;
-  private Marker marker;
+    private GoogleMap gMap;
+    private Marker marker;
 
 
-  /**
-  * {@inheritDoc}
-  */
+    /**
+     * {@inheritDoc}
+     */
 
-  @Override
-  protected void onStart() {
-      super.onStart();
-      new HttpRequestTask().execute();
-  }
-
-
-  protected void onCreate(final Bundle savedInstanceState) {
-      super.onCreate(savedInstanceState);
-      setContentView(R.layout.activity_map);
+    @Override
+    protected void onStart() {
+        super.onStart();
+        new HttpRequestTask().execute();
+    }
 
 
-      gMap = ((MapFragment)getFragmentManager().findFragmentById(R.id.map)).getMap();
+    protected void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_map);
 
-      //Obtention de la référence du service
-      locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
-      location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-      //marker = gMap.addMarker(new MarkerOptions().title("Vous êtes ici").position(new LatLng(0, 0)));
+        gMap = ((MapFragment)getFragmentManager().findFragmentById(R.id.map)).getMap();
+
+        //Obtention de la référence du service
+        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        //marker = gMap.addMarker(new MarkerOptions().title("Vous êtes ici").position(new LatLng(0, 0)));
 
 
  /*     // latitude and longitude
@@ -77,7 +74,7 @@ public class MainActivityMap extends Activity implements LocationListener{
 
 
 
-  }
+    }
 
     // methode afficher positions
     public void createMarketOfPerson(double latitude, double longitude, Bitmap image, String email) {
@@ -101,97 +98,97 @@ public class MainActivityMap extends Activity implements LocationListener{
                 .title(email)).showInfoWindow();
     }
 
-  /**
-  * {@inheritDoc}
-  */
+    /**
+     * {@inheritDoc}
+     */
 
-  public void onResume() {
-      super.onResume();
+    public void onResume() {
+        super.onResume();
 
-      //Obtention de la référence du service
-      locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        //Obtention de la référence du service
+        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
 
-      //Si le GPS est disponible, on s'y abonne
-      if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-          abonnementGPS();
-      }
-  }
+        //Si le GPS est disponible, on s'y abonne
+        if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            abonnementGPS();
+        }
+    }
 
-  /**
-  * {@inheritDoc}
-  */
+    /**
+     * {@inheritDoc}
+     */
 
-  public void onPause() {
-      super.onPause();
+    public void onPause() {
+        super.onPause();
 
-      //On appelle la méthode pour se désabonner
-      desabonnementGPS();
-  }
+        //On appelle la méthode pour se désabonner
+        desabonnementGPS();
+    }
 
-  /**
-  * Méthode permettant de s'abonner à la localisation par GPS.
-  */
-  public void abonnementGPS() {
-      //On s'abonne
-      locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this);
-  }
+    /**
+     * Méthode permettant de s'abonner à la localisation par GPS.
+     */
+    public void abonnementGPS() {
+        //On s'abonne
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500000000, 100000000, this);
+    }
 
-  /**
-  * Méthode permettant de se désabonner de la localisation par GPS.
-  */
-  public void desabonnementGPS() {
-      //Si le GPS est disponible, on s'y abonne
-      locationManager.removeUpdates(this);
-  }
+    /**
+     * Méthode permettant de se désabonner de la localisation par GPS.
+     */
+    public void desabonnementGPS() {
+        //Si le GPS est disponible, on s'y abonne
+        locationManager.removeUpdates(this);
+    }
 
-  /**
-  * {@inheritDoc}
-  */
+    /**
+     * {@inheritDoc}
+     */
 
-  public void onLocationChanged(final Location location) {
-      //On affiche dans un Toat la nouvelle Localisation
-      final StringBuilder msg = new StringBuilder("lat : ");
-      msg.append(location.getLatitude());
-      msg.append( "; lng : ");
-      msg.append(location.getLongitude());
+    public void onLocationChanged(final Location location) {
+        //On affiche dans un Toat la nouvelle Localisation
+        final StringBuilder msg = new StringBuilder("lat : ");
+        msg.append(location.getLatitude());
+        msg.append( "; lng : ");
+        msg.append(location.getLongitude());
 
-      Toast.makeText(this, msg.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, msg.toString(), Toast.LENGTH_SHORT).show();
 
-      //Mise à jour des coordonnées
-      final LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-      Bitmap bitmapImg = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.person), 100, 75, true);
-      createMarketOfPerson(location.getLatitude(), location.getLongitude(), bitmapImg, null);
-      gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-      //marker.setPosition(latLng);
-  }
+        //Mise à jour des coordonnées
+        final LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        Bitmap bitmapImg = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.person), 100, 75, true);
+        createMarketOfPerson(location.getLatitude(), location.getLongitude(), bitmapImg, null);
+        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+        //marker.setPosition(latLng);
+    }
 
-  /**
-  * {@inheritDoc}
-  */
+    /**
+     * {@inheritDoc}
+     */
 
-  public void onProviderDisabled(final String provider) {
-      //Si le GPS est désactivé on se désabonne
-      if("gps".equals(provider)) {
-          desabonnementGPS();
-      }        
-  }
+    public void onProviderDisabled(final String provider) {
+        //Si le GPS est désactivé on se désabonne
+        if("gps".equals(provider)) {
+            desabonnementGPS();
+        }
+    }
 
-  /**
-  * {@inheritDoc}
-  */
+    /**
+     * {@inheritDoc}
+     */
 
-  public void onProviderEnabled(final String provider) {
-      //Si le GPS est activé on s'abonne
-      if("gps".equals(provider)) {
-          abonnementGPS();
-      }
-  }
+    public void onProviderEnabled(final String provider) {
+        //Si le GPS est activé on s'abonne
+        if("gps".equals(provider)) {
+            abonnementGPS();
+        }
+    }
 
-  /**
-  * {@inheritDoc}
-  */
+    /**
+     * {@inheritDoc}
+     */
 
-  public void onStatusChanged(final String provider, final int status, final Bundle extras) { }
+    public void onStatusChanged(final String provider, final int status, final Bundle extras) { }
 
 
     private class HttpRequestTask extends AsyncTask<Void, Void, Contact[]> {
