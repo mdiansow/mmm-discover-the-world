@@ -140,7 +140,7 @@ public class ChatActivity extends Activity implements MessagesFragment.OnFragmen
                     msg = "Sent message";
 
 
-                    ServerUtilities.send(String.valueOf(data), profileEmail);
+                    ServerUtilities.send(txt, profileEmail);
 
                     ContentValues values = new ContentValues(2);
                     values.put(DataProvider.COL_MSG, txt);
