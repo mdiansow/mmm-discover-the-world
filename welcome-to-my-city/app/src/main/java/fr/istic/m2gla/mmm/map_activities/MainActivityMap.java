@@ -23,6 +23,9 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import fr.istic.m2gla.mmm.R;
+import fr.istic.m2gla.mmm.client.Common;
+import fr.istic.m2gla.mmm.client.Constants;
+import fr.istic.m2gla.mmm.client.ServerUtilities;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -38,6 +41,7 @@ import java.util.List;
 public class MainActivityMap extends Activity implements LocationListener{
 
   private LocationManager locationManager;
+    private Location location ;
   private GoogleMap gMap;
   private Marker marker;
 
@@ -46,11 +50,24 @@ public class MainActivityMap extends Activity implements LocationListener{
   * {@inheritDoc}
   */
 
+  @Override
+  protected void onStart() {
+      super.onStart();
+      new HttpRequestTask().execute();
+  }
+
+
   protected void onCreate(final Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_map);
 
+
       gMap = ((MapFragment)getFragmentManager().findFragmentById(R.id.map)).getMap();
+
+      //Obtention de la référence du service
+      locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+      location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
       //marker = gMap.addMarker(new MarkerOptions().title("Vous êtes ici").position(new LatLng(0, 0)));
 
 
@@ -63,7 +80,7 @@ public class MainActivityMap extends Activity implements LocationListener{
   }
 
     // methode afficher positions
-    public void createMarketOfPerson(double latitude, double longitude, Bitmap image) {
+    public void createMarketOfPerson(double latitude, double longitude, Bitmap image, String email) {
 
 
         Bitmap.Config conf = Bitmap.Config.ARGB_8888;
@@ -81,7 +98,7 @@ public class MainActivityMap extends Activity implements LocationListener{
                 .position(new LatLng(latitude, longitude))
                 .icon(BitmapDescriptorFactory.fromBitmap(bmp))
                 .anchor(0.5f, 1)
-                .title("Vous êtes ici")).showInfoWindow();
+                .title(email)).showInfoWindow();
     }
 
   /**
@@ -143,7 +160,7 @@ public class MainActivityMap extends Activity implements LocationListener{
       //Mise à jour des coordonnées
       final LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
       Bitmap bitmapImg = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.person), 100, 75, true);
-      createMarketOfPerson(location.getLatitude(), location.getLongitude(), bitmapImg);
+      createMarketOfPerson(location.getLatitude(), location.getLongitude(), bitmapImg, null);
       gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
       //marker.setPosition(latLng);
   }
@@ -182,12 +199,13 @@ public class MainActivityMap extends Activity implements LocationListener{
         @Override
         protected Contact[] doInBackground(Void... params) {
             try {
-
-                final String url = "http://rest-service.guides.spring.io/greeting";
+                final LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                final String url = Constants.SERVER_URL+"rest/contact/email="+ Common.getPreferredEmail()+"&lat="+latLng.latitude+"&long="+latLng.longitude;
+                Log.i("mamh",url);
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                ResponseEntity<Contact[]> listCoordibates = restTemplate.getForEntity(url, Contact[].class);
-                Contact[] coordinates = listCoordibates.getBody();
+                ResponseEntity<Contact[]> listCoordibantes = restTemplate.getForEntity(url, Contact[].class);
+                Contact[] coordinates = listCoordibantes.getBody();
                 return coordinates;
             } catch (Exception e) {
                 Log.e("MainActivity", e.getMessage(), e);
@@ -200,7 +218,7 @@ public class MainActivityMap extends Activity implements LocationListener{
         protected void onPostExecute(Contact[] coordonnees) {
             for (Contact userCoordinates : coordonnees){
                 Bitmap bitmapImg = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.person), 100, 75, true);
-                createMarketOfPerson(userCoordinates.getLatitude(), userCoordinates.getLongitude(), bitmapImg);
+                createMarketOfPerson(userCoordinates.getLatitude(), userCoordinates.getLongitude(), bitmapImg, userCoordinates.getEmail());
             }
         }
 
