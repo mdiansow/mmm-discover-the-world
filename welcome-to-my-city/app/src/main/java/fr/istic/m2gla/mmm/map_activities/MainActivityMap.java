@@ -28,7 +28,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-
 import fr.istic.m2gla.mmm.DataProvider;
 import fr.istic.m2gla.mmm.R;
 import fr.istic.m2gla.mmm.client.Common;
@@ -53,28 +52,31 @@ public class MainActivityMap extends Activity implements LocationListener {
     @Override
     protected void onStart() {
         super.onStart();
-
         if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
-        new HttpRequestTask().execute();
-        else Toast.makeText(this,"SVP, activer le GPS", Toast.LENGTH_LONG).show();
+            new HttpRequestTask().execute();
     }
-
 
 
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        gMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 
+        gMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 
         //Obtention de la référence du service
         locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
         location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
+        //marker = gMap.addMarker(new MarkerOptions().title("Vous êtes ici").position(new LatLng(0, 0)));
+
+
+ /*     // latitude and longitude
+      double latitude = 48.1119800 ;
+      double longitude = -1.6742900;*/
+
+
     }
-
-
 
     // methode afficher positions
     public void createMarketOfPerson(double latitude, double longitude, Bitmap image, String email) {
@@ -151,7 +153,6 @@ public class MainActivityMap extends Activity implements LocationListener {
 
         //On appelle la méthode pour se désabonner
         desabonnementGPS();
-
     }
 
     /**
@@ -159,7 +160,6 @@ public class MainActivityMap extends Activity implements LocationListener {
      */
     public void abonnementGPS() {
         //On s'abonne
-
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 999999999, 999999999, this);
     }
 
@@ -179,8 +179,7 @@ public class MainActivityMap extends Activity implements LocationListener {
         //On affiche dans un Toat la nouvelle Localisation
         final StringBuilder msg = new StringBuilder("lat : ");
         msg.append(location.getLatitude());
-        msg.append( "; lng : ");
-
+        msg.append("; lng : ");
         msg.append(location.getLongitude());
 
         Toast.makeText(this, msg.toString(), Toast.LENGTH_SHORT).show();
@@ -199,9 +198,7 @@ public class MainActivityMap extends Activity implements LocationListener {
 
     public void onProviderDisabled(final String provider) {
         //Si le GPS est désactivé on se désabonne
-
-        if("gps".equals(provider)) {
-
+        if ("gps".equals(provider)) {
             desabonnementGPS();
         }
     }
@@ -212,8 +209,7 @@ public class MainActivityMap extends Activity implements LocationListener {
 
     public void onProviderEnabled(final String provider) {
         //Si le GPS est activé on s'abonne
-        if("gps".equals(provider)) {
-
+        if ("gps".equals(provider)) {
             abonnementGPS();
         }
     }
@@ -222,8 +218,7 @@ public class MainActivityMap extends Activity implements LocationListener {
      * {@inheritDoc}
      */
 
-
-    public void onStatusChanged(final String provider,final int status, final Bundle extras) {
+    public void onStatusChanged(final String provider, final int status, final Bundle extras) {
     }
 
 
