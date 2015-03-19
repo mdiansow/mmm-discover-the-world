@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 /**
- * @author appsrox.com
+ * @author BeWelcome
  *
  */
 public class AddContactDialog extends DialogFragment {

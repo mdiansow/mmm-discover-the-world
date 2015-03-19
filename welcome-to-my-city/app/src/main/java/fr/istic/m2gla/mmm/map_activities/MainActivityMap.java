@@ -10,7 +10,9 @@ import android.app.Activity;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 import fr.istic.m2gla.mmm.R;
 import com.google.android.gms.maps.model.*;
@@ -20,9 +22,15 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import 	android.graphics.BitmapFactory;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
+
 /**
  * MainActivity.
- * @author Ludovic
+ * ²
  *
  */
 public class MainActivityMap extends Activity implements LocationListener{
@@ -133,7 +141,7 @@ public class MainActivityMap extends Activity implements LocationListener{
       //Mise à jour des coordonnées
       final LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
       Bitmap bitmapImg = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.person), 100, 75, true);
-      createMarketOfPerson(location.getLatitude(),location.getLongitude(),bitmapImg);
+      createMarketOfPerson(location.getLatitude(), location.getLongitude(), bitmapImg);
       gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
       //marker.setPosition(latLng);
   }
@@ -165,5 +173,37 @@ public class MainActivityMap extends Activity implements LocationListener{
   */
 
   public void onStatusChanged(final String provider, final int status, final Bundle extras) { }
+
+
+    private class HttpRequestTask extends AsyncTask<Void, Void, Contact[]> {
+
+        @Override
+        protected Contact[] doInBackground(Void... params) {
+            try {
+
+                final String url = "http://rest-service.guides.spring.io/greeting";
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                ResponseEntity<Contact[]> listCoordibates = restTemplate.getForEntity(url, Contact[].class);
+                Contact[] coordinates = listCoordibates.getBody();
+                return coordinates;
+            } catch (Exception e) {
+                Log.e("MainActivity", e.getMessage(), e);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Contact[] coordonnees) {
+            for (Contact userCoordinates : coordonnees){
+                Bitmap bitmapImg = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.person), 100, 75, true);
+                createMarketOfPerson(userCoordinates.getLatitude(), userCoordinates.getLongitude(), bitmapImg);
+            }
+        }
+
+    }
+
+
 }
 

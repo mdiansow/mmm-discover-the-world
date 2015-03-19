@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
 /**
- * Created by mds on 17/03/15.
+ * Created by  BeWelcome on 17/03/15.
  */
 public class DataProvider extends ContentProvider {
     public static final String COL_ID = "_id";

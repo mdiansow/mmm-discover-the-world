@@ -19,7 +19,7 @@ import android.widget.TextView;
 import fr.istic.m2gla.mmm.client.Common;
 
 /**
- * @author appsrox.com
+ * @author BeWelcome
  */
 public class MainActivity extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 

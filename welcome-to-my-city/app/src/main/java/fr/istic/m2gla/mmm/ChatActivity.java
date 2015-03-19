@@ -27,7 +27,7 @@ import fr.istic.m2gla.mmm.client.GcmUtil;
 import fr.istic.m2gla.mmm.client.ServerUtilities;
 
 /**
- * @author appsrox.com
+ * @author @author BeWelcome
  */
 public class ChatActivity extends Activity implements MessagesFragment.OnFragmentInteractionListener, EditContactDialog.OnFragmentInteractionListener {
 
