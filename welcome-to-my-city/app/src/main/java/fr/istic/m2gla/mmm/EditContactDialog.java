@@ -16,7 +16,7 @@ import android.widget.EditText;
 import fr.istic.m2gla.mmm.client.Common;
 
 /**
- * @author appsrox.com
+ * @author @author BeWelcome
  *
  */
 public class EditContactDialog extends DialogFragment {

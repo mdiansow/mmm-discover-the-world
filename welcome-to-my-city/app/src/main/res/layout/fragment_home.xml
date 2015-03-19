@@ -3,13 +3,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.mapquest.android.maps.MapView
-        android:id="@+id/map2"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:clickable="true"
-        android:enabled="true"
-        android:apiKey=""
-        android:layout_alignParentTop="true" />
-    
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Bienvenue"
+        android:id="@+id/textView"
+        android:layout_marginTop="58dp"
+        android:layout_marginLeft="61dp"
+        android:layout_marginStart="61dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Vous etes authentifié en tant que :"
+        android:id="@+id/textView2"
+        android:layout_marginTop="87dp"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Inconnu"
+        android:id="@+id/textView3"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_below="@+id/textView2" />
+
 </RelativeLayout>
