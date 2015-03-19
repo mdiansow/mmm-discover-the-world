@@ -15,8 +15,8 @@ import android.text.TextUtils;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
-import fr.istic.m2gla.mmm.chat_activities.DataProvider;
-import fr.istic.m2gla.mmm.chat_activities.MainActivity;
+import fr.istic.m2gla.mmm.DataProvider;
+import fr.istic.m2gla.mmm.MainActivity;
 import fr.istic.m2gla.mmm.R;
 
 /**

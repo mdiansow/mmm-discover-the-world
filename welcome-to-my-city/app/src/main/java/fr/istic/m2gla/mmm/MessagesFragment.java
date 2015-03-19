@@ -1,4 +1,4 @@
-package fr.istic.m2gla.mmm.chat_activities;
+package fr.istic.m2gla.mmm;
 
 import android.app.Activity;
 import android.app.ListFragment;
@@ -17,8 +17,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import fr.istic.m2gla.mmm.R;
 
 /**
  * A fragment representing a list of Items.

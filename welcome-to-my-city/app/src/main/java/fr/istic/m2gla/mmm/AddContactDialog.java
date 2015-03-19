@@ -1,4 +1,4 @@
-package fr.istic.m2gla.mmm.chat_activities;
+package fr.istic.m2gla.mmm;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

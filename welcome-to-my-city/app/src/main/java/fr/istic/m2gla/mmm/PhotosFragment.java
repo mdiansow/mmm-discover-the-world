@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import fr.istic.m2gla.mmm.chat_activities.MainActivity;
-
 public class PhotosFragment extends Fragment {
 	
 	public PhotosFragment(){}
