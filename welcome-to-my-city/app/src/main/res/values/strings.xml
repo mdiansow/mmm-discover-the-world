@@ -20,9 +20,9 @@
         <item >Profil</item>
         <item >Rechercher personne</item>
         <item >Tchat</item>
-        <item >Afficher itinéraire</item>
+        <item >Carte</item>
         <item >Fonctionnalités4</item>
-        <item >Filles chaudes</item>
+        <item >Fonctionnalités5</item>
     </string-array>
     
     <!-- Nav Drawer List Item Icons -->
@@ -31,7 +31,7 @@
         <item>@drawable/ic_home</item>
         <item>@drawable/ic_people</item>
         <item>@drawable/ic_photos</item>
-        <item>@drawable/ic_communities</item>
+        <item>@drawable/google_maps_pointer</item>
         <item>@drawable/ic_pages</item>
         <item>@drawable/ic_whats_hot</item>
     </array>
