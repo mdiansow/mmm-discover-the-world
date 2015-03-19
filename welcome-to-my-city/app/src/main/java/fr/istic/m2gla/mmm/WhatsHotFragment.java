@@ -20,9 +20,6 @@ public class WhatsHotFragment extends Fragment {
  
         View rootView = inflater.inflate(R.layout.fragment_whats_hot, container, false);
 
-        Intent intent = new Intent(this.getActivity(), MainActivityMap.class);
-        getActivity().startActivity(intent);
-
         return rootView;
     }
 }
