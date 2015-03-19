@@ -1,4 +1,4 @@
-package model;
+package fr.istic.m2gla.mmm.model;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

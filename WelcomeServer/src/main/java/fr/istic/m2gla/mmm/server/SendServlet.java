@@ -1,4 +1,4 @@
-package server;
+package fr.istic.m2gla.mmm.server;
 
 import com.google.android.gcm.server.Message;
 import com.google.android.gcm.server.Result;
@@ -26,7 +26,7 @@ public class SendServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/plain");
-        resp.getWriter().println("Sends a message to the GCM server.");
+        resp.getWriter().println("Sends a message to the GCM fr.istic.m2gla.mmm.server.");
     }
 
     @Override
@@ -53,7 +53,7 @@ public class SendServlet extends HttpServlet {
                 .collapseKey("message")
                 .timeToLive(3)
                 .delayWhileIdle(true)
-                .addData("message", "Welcome to Push Notifications") //you can get this message on client side app
+                .addData("message", msg) //you can get this message on client side app
                 .build();
 
 //        //Use this code to send notification message to a single device

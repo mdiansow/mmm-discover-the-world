@@ -3,8 +3,26 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
     <servlet>
+        <servlet-name>Jersey</servlet-name>
+        <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>fr.istic.m2gla.mmm.server</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Jersey</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>Register</servlet-name>
-        <servlet-class>server.RegisterServlet</servlet-class>
+        <servlet-class>fr.istic.m2gla.mmm.server.RegisterServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
@@ -13,7 +31,7 @@
 
     <servlet>
         <servlet-name>Unregister</servlet-name>
-        <servlet-class>server.UnregisterServlet</servlet-class>
+        <servlet-class>fr.istic.m2gla.mmm.server.UnregisterServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Unregister</servlet-name>
@@ -22,7 +40,7 @@
 
     <servlet>
         <servlet-name>Send</servlet-name>
-        <servlet-class>server.SendServlet</servlet-class>
+        <servlet-class>fr.istic.m2gla.mmm.server.SendServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Send</servlet-name>
@@ -34,7 +52,7 @@
     </welcome-file-list>
     <!--<servlet>-->
     <!--<servlet-name>SystemServiceServlet</servlet-name>-->
-    <!--<servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>-->
+    <!--<servlet-class>com.google.api.fr.istic.m2gla.mmm.server.spi.SystemServiceServlet</servlet-class>-->
     <!--<init-param>-->
     <!--<param-name>services</param-name>-->
     <!--<param-value/>-->
