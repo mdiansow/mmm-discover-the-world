@@ -133,7 +133,7 @@ public class MainActivityMap extends Activity implements LocationListener{
   */
   public void abonnementGPS() {
       //On s'abonne
-      locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this);
+      locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500000000, 100000000, this);
   }
 
   /**
