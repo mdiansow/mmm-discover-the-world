@@ -201,7 +201,6 @@ public class MainActivityMap extends Activity implements LocationListener{
             try {
                 final LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                 final String url = Constants.SERVER_URL+"rest/contact/email="+ Common.getPreferredEmail()+"&lat="+latLng.latitude+"&long="+latLng.longitude;
-                Log.i("mamh",url);
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 ResponseEntity<Contact[]> listCoordibantes = restTemplate.getForEntity(url, Contact[].class);
