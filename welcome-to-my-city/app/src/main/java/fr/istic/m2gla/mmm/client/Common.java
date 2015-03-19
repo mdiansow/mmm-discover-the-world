@@ -27,7 +27,7 @@ public class Common extends Application {
     public static final String FROM = "email";
     public static final String REG_ID = "regId";
     public static final String MSG = "msg";
-    public static final String TO = "email2";
+    public static final String TO = "to";
 
     public static String[] email_arr = {};
 
