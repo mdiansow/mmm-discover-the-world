@@ -1,4 +1,4 @@
-package fr.istic.m2gla.mmm.chat_activities;
+package fr.istic.m2gla.mmm;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
-import fr.istic.m2gla.mmm.R;
 import fr.istic.m2gla.mmm.client.Common;
 import fr.istic.m2gla.mmm.client.GcmUtil;
 import fr.istic.m2gla.mmm.client.ServerUtilities;

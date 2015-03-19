@@ -3,12 +3,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="fr.istic.m2gla.mmm">
 
+    // add map permission
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="17" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
+
+
+
+    <permission
+        android:name="fr.istic.m2gla.mmm.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="fr.istic.m2gla.mmm.permission.MAPS_RECEIVE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <permission
+        android:name="fr.istic.m2gla.mmm.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    // fin
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme2"
         android:name=".client.Common">
+
+        //add yacine
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyDcc_OP8XNo9jDmH5ooa_jrcYMPqMao4wY"/>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name="fr.istic.m2gla.mmm.map_activities.MainActivityMap"
+            android:label="@string/app_name" >
+        </activity>
+        // fin
         <activity
             android:name="fr.istic.m2gla.mmm.MainActivity2"
             android:label="@string/app_name">
@@ -19,43 +65,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="fr.istic.m2gla.mmm.chat_activities.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"></activity>
 
         <activity
-            android:name="fr.istic.m2gla.mmm.chat_activities.SettingsActivity"
+            android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"></activity>
         <activity
-            android:name="fr.istic.m2gla.mmm.chat_activities.ChatActivity"
+            android:name=".ChatActivity"
             android:logo="@drawable/ic_contact_picture"></activity>
 
         <provider
-            android:name="fr.istic.m2gla.mmm.chat_activities.DataProvider"
+            android:name="fr.istic.m2gla.mmm.DataProvider"
             android:authorities="fr.istic.m2gla.mmm.provider"
             android:exported="false" />
-
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <permission
-        android:name="fr.istic.m2gla.mmm.client.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
-
-    <uses-permission android:name="fr.istic.m2gla.mmm.client.permission.C2D_MESSAGE" />
-
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
 
     <receiver
-        android:name="fr.istic.m2gla.mmm.client.GcmBroadcastReceiver"
+        android:name=".client.GcmBroadcastReceiver"
         android:permission="com.google.android.c2dm.permission.SEND">
         <intent-filter>
             <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-            <category android:name="fr.istic.m2gla.mmm.client" />
+            <category android:name="fr.istic.m2gla.mmm" />
         </intent-filter>
     </receiver>
 </manifest>

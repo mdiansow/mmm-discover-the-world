@@ -1,4 +1,4 @@
-package fr.istic.m2gla.mmm.chat_activities;
+package fr.istic.m2gla.mmm;
 
 import android.app.ActionBar;
 import android.app.ListActivity;
@@ -16,7 +16,6 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import fr.istic.m2gla.mmm.R;
 import fr.istic.m2gla.mmm.client.Common;
 
 /**
