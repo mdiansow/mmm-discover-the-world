@@ -6,17 +6,19 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import android.app.Activity;
-import android.app.ListActivity;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.widget.Toast;
-
 import fr.istic.m2gla.mmm.R;
-
+import com.google.android.gms.maps.model.*;
+import android.graphics.Bitmap;
+import android.graphics.Paint;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import 	android.graphics.BitmapFactory;
 
 /**
  * MainActivity.
@@ -39,8 +41,38 @@ public class MainActivityMap extends Activity implements LocationListener{
       setContentView(R.layout.activity_map);
 
       gMap = ((MapFragment)getFragmentManager().findFragmentById(R.id.map)).getMap();
-      marker = gMap.addMarker(new MarkerOptions().title("Vous êtes ici").position(new LatLng(0, 0)));
+      //marker = gMap.addMarker(new MarkerOptions().title("Vous êtes ici").position(new LatLng(0, 0)));
+
+
+ /*     // latitude and longitude
+      double latitude = 48.1119800 ;
+      double longitude = -1.6742900;*/
+
+
+
   }
+
+    // methode afficher positions
+    public void createMarketOfPerson(double latitude, double longitude, Bitmap image) {
+
+
+        Bitmap.Config conf = Bitmap.Config.ARGB_8888;
+        Bitmap bmp = Bitmap.createBitmap(50, 30, conf);
+        Canvas canvas = new Canvas(bmp);
+
+        Paint color = new Paint();
+        color.setTextSize(6);
+        color.setColor(Color.WHITE);
+
+
+        canvas.drawBitmap(Bitmap.createScaledBitmap(image, 50, 30, true), 0, 0, color);
+
+        gMap.addMarker(new MarkerOptions()
+                .position(new LatLng(latitude, longitude))
+                .icon(BitmapDescriptorFactory.fromBitmap(bmp))
+                .anchor(0.5f, 1)
+                .title("Vous êtes ici")).showInfoWindow();
+    }
 
   /**
   * {@inheritDoc}
@@ -99,9 +131,11 @@ public class MainActivityMap extends Activity implements LocationListener{
       Toast.makeText(this, msg.toString(), Toast.LENGTH_SHORT).show();
 
       //Mise à jour des coordonnées
-      final LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());      
+      final LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+      Bitmap bitmapImg = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.person), 100, 75, true);
+      createMarketOfPerson(location.getLatitude(),location.getLongitude(),bitmapImg);
       gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-      marker.setPosition(latLng);
+      //marker.setPosition(latLng);
   }
 
   /**
