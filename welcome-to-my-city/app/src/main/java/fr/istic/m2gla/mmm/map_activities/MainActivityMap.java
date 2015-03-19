@@ -60,6 +60,7 @@ public class MainActivityMap extends Activity implements LocationListener {
     }
 
 
+
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
@@ -150,6 +151,7 @@ public class MainActivityMap extends Activity implements LocationListener {
 
         //On appelle la méthode pour se désabonner
         desabonnementGPS();
+
     }
 
     /**
@@ -221,7 +223,7 @@ public class MainActivityMap extends Activity implements LocationListener {
      */
 
 
-    public void onStatusChanged(final String provider, final int status, final Bundle extras) {
+    public void onStatusChanged(final String provider,final int status, final Bundle extras) {
     }
 
 
