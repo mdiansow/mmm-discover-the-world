@@ -9,11 +9,11 @@ public interface Constants {
     /**
      * Google API Console Browser key.
      */
-	String API_KEY = "<provide_api_key>";
+	String API_KEY = "AIzaSyB5vQnIvMb-NunaxBII_IaW7s4s2pWkJjE";
 
 	String FROM = "email";
-	String REG_ID = "regId";
+	String REG_ID = "registration_id";
 	String MSG = "msg";
-	String TO = "email2";
+	String TO = "to";
 	
 }
