@@ -24,16 +24,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import fr.istic.m2gla.mmm.R;
-import fr.istic.m2gla.mmm.client.Common;
-import fr.istic.m2gla.mmm.client.Constants;
-import fr.istic.m2gla.mmm.client.ServerUtilities;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
+import fr.istic.m2gla.mmm.R;
+import fr.istic.m2gla.mmm.client.Common;
+import fr.istic.m2gla.mmm.client.Constants;
 
 /**
  * MainActivity.
@@ -57,6 +54,7 @@ public class MainActivityMap extends Activity implements LocationListener{
         if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
             new HttpRequestTask().execute();
         else Toast.makeText(this,"SVP, activer le GPS", Toast.LENGTH_LONG).show();
+
     }
 
 
@@ -108,9 +106,6 @@ public class MainActivityMap extends Activity implements LocationListener{
      * {@inheritDoc}
      */
 
-    /**
-     * {@inheritDoc}
-     */
 
     public void onResume() {
         super.onResume();
@@ -128,7 +123,8 @@ public class MainActivityMap extends Activity implements LocationListener{
      * {@inheritDoc}
      */
 
-    public void onPause() {
+
+public void onPause() {
         super.onPause();
     }
     /**
