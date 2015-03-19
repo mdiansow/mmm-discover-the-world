@@ -41,15 +41,15 @@ public class MainActivityMap extends Activity implements LocationListener{
       setContentView(R.layout.activity_map);
 
       gMap = ((MapFragment)getFragmentManager().findFragmentById(R.id.map)).getMap();
-      marker = gMap.addMarker(new MarkerOptions().title("Vous êtes ici").position(new LatLng(0, 0)));
+      //marker = gMap.addMarker(new MarkerOptions().title("Vous êtes ici").position(new LatLng(0, 0)));
 
 
-      // latitude and longitude
+ /*     // latitude and longitude
       double latitude = 48.1119800 ;
-      double longitude = -1.6742900;
+      double longitude = -1.6742900;*/
 
-      Bitmap bitmapImg = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_photos), 100, 75, true);
-      createMarketOfPerson(latitude,longitude,bitmapImg);
+
+
   }
 
     // methode afficher positions
@@ -71,7 +71,7 @@ public class MainActivityMap extends Activity implements LocationListener{
                 .position(new LatLng(latitude, longitude))
                 .icon(BitmapDescriptorFactory.fromBitmap(bmp))
                 .anchor(0.5f, 1)
-                .title("olalala ")).showInfoWindow();
+                .title("Vous êtes ici")).showInfoWindow();
     }
 
   /**
@@ -131,9 +131,11 @@ public class MainActivityMap extends Activity implements LocationListener{
       Toast.makeText(this, msg.toString(), Toast.LENGTH_SHORT).show();
 
       //Mise à jour des coordonnées
-      final LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());      
+      final LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+      Bitmap bitmapImg = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.person), 100, 75, true);
+      createMarketOfPerson(location.getLatitude(),location.getLongitude(),bitmapImg);
       gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-      marker.setPosition(latLng);
+      //marker.setPosition(latLng);
   }
 
   /**
