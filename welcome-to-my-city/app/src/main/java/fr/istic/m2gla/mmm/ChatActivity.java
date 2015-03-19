@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import fr.istic.m2gla.mmm.client.Common;
 import fr.istic.m2gla.mmm.client.GcmUtil;
@@ -27,103 +28,125 @@ import fr.istic.m2gla.mmm.client.ServerUtilities;
 
 /**
  * @author appsrox.com
- *
  */
 public class ChatActivity extends Activity implements MessagesFragment.OnFragmentInteractionListener, EditContactDialog.OnFragmentInteractionListener {
 
-	private EditText msgEdit;
-	private Button sendBtn;
-	private String profileId;
-	private String profileName;
-	private String profileEmail;
-	
-	private GcmUtil gcmUtil;
+    private EditText msgEdit;
+    private Button sendBtn;
+    private String profileId;
+    private String profileName;
+    private String profileEmail;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_chat);
-		
-		profileId = getIntent().getStringExtra(Common.PROFILE_ID);
-		msgEdit = (EditText) findViewById(R.id.msg_edit);
-		sendBtn = (Button) findViewById(R.id.send_btn);
-		
-		ActionBar actionBar = getActionBar();
-		actionBar.setHomeButtonEnabled(true);
-		actionBar.setDisplayHomeAsUpEnabled(true);
-		
-		Cursor c = getContentResolver().query(Uri.withAppendedPath(DataProvider.CONTENT_URI_PROFILE, profileId), null, null, null, null);
-		if (c.moveToFirst()) {
-			profileName = c.getString(c.getColumnIndex(DataProvider.COL_NAME));
-			profileEmail = c.getString(c.getColumnIndex(DataProvider.COL_EMAIL));
-			actionBar.setTitle(profileName);
-		}
-		actionBar.setSubtitle("connecting ...");
-		
-		registerReceiver(registrationStatusReceiver, new IntentFilter(Common.ACTION_REGISTER));
-		gcmUtil = new GcmUtil(getApplicationContext());
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.chat, menu);
-		return true;
-	}	
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.action_edit:
-			EditContactDialog dialog = new EditContactDialog();
-			Bundle args = new Bundle();
-			args.putString(Common.PROFILE_ID, profileId);
-			args.putString(DataProvider.COL_NAME, profileName);
-			dialog.setArguments(args);
-			dialog.show(getFragmentManager(), "EditContactDialog");
-			return true;
-			
-		case android.R.id.home:
-			Intent intent = new Intent(this, MainActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
-			return true;			
-		}
-		return super.onOptionsItemSelected(item);
-	}
+    private GcmUtil gcmUtil;
 
-	public void onClick(View v) {
-		switch(v.getId()) {
-		case R.id.send_btn:
-			send(msgEdit.getText().toString());
-			msgEdit.setText(null);
-			break;
-		}
-	}
-	
-	@Override
-	public void onEditContact(String name) {
-		getActionBar().setTitle(name);
-	}	
-	
-	@Override
-	public String getProfileEmail() {
-		return profileEmail;
-	}	
-	
-	private void send(final String txt) {
-        new AsyncTask<Void, Void, String>() {
+    private AtomicInteger msgId = new AtomicInteger();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_chat);
+
+        profileId = getIntent().getStringExtra(Common.PROFILE_ID);
+        msgEdit = (EditText) findViewById(R.id.msg_edit);
+        sendBtn = (Button) findViewById(R.id.send_btn);
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        Cursor c = getContentResolver().query(Uri.withAppendedPath(DataProvider.CONTENT_URI_PROFILE, profileId), null, null, null, null);
+        if (c.moveToFirst()) {
+            profileName = c.getString(c.getColumnIndex(DataProvider.COL_NAME));
+            profileEmail = c.getString(c.getColumnIndex(DataProvider.COL_EMAIL));
+            actionBar.setTitle(profileName);
+        }
+        actionBar.setSubtitle("connecting ...");
+
+        registerReceiver(registrationStatusReceiver, new IntentFilter(Common.ACTION_REGISTER));
+        gcmUtil = new GcmUtil(getApplicationContext());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.chat, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_edit:
+                EditContactDialog dialog = new EditContactDialog();
+                Bundle args = new Bundle();
+                args.putString(Common.PROFILE_ID, profileId);
+                args.putString(DataProvider.COL_NAME, profileName);
+                dialog.setArguments(args);
+                dialog.show(getFragmentManager(), "EditContactDialog");
+                return true;
+
+            case android.R.id.home:
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.send_btn:
+                send(msgEdit.getText().toString());
+                msgEdit.setText(null);
+                break;
+        }
+    }
+
+    @Override
+    public void onEditContact(String name) {
+        getActionBar().setTitle(name);
+    }
+
+    @Override
+    public String getProfileEmail() {
+        return profileEmail;
+    }
+
+    private void send(final String txt) {
+        new AsyncTask<String, Void, String>() {
             @Override
-            protected String doInBackground(Void... params) {
+            protected String doInBackground(String... params) {
                 String msg = "";
                 try {
-                    ServerUtilities.send(txt, profileEmail);
-                    
-        			ContentValues values = new ContentValues(2);
-        			values.put(DataProvider.COL_MSG, txt);
-        			values.put(DataProvider.COL_TO, profileEmail);
-        			getContentResolver().insert(DataProvider.CONTENT_URI_MESSAGES, values);
-        			
+
+                    Bundle data = new Bundle();
+                    data.putString("message", params[0]);
+
+                    if (params[1].equals("Echo")) {
+                        data.putString("action", "fr.istic.m2gla.mmm.ECHO");
+                    } else if (params[1].equals("Broadcast")) {
+                        data.putString("action", "fr.istic.m2gla.mmm.BROADCAST");
+                    } else if (params[1].equals("Notification")) {
+                        data.putString("action", "fr.istic.m2gla.mmm.NOTIFICATION");
+                    }
+
+
+                    String id = Integer.toString(msgId.incrementAndGet());
+                    data.putString("msgID", id);
+                    // gcm.send(Globals.GCM_SENDER_ID + "@gcm.googleapis.com", id, Globals.GCM_TIME_TO_LIVE, data);
+
+
+                    msg = "Sent message";
+
+
+                    ServerUtilities.send(String.valueOf(data), profileEmail);
+
+                    ContentValues values = new ContentValues(2);
+                    values.put(DataProvider.COL_MSG, txt);
+                    values.put(DataProvider.COL_TO, profileEmail);
+                    getContentResolver().insert(DataProvider.CONTENT_URI_MESSAGES, values);
+
                 } catch (IOException ex) {
                     msg = "Message could not be sent";
                 }
@@ -132,47 +155,47 @@ public class ChatActivity extends Activity implements MessagesFragment.OnFragmen
 
             @Override
             protected void onPostExecute(String msg) {
-            	if (!TextUtils.isEmpty(msg)) {
-            		Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-            	}
+                if (!TextUtils.isEmpty(msg)) {
+                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                }
             }
-        }.execute(null, null, null);		
-	}	
+        }.execute(null, null, null);
+    }
 
-	@Override
-	protected void onPause() {
-		ContentValues values = new ContentValues(1);
-		values.put(DataProvider.COL_COUNT, 0);
-		getContentResolver().update(Uri.withAppendedPath(DataProvider.CONTENT_URI_PROFILE, profileId), values, null, null);
-		super.onPause();
-	}
+    @Override
+    protected void onPause() {
+        ContentValues values = new ContentValues(1);
+        values.put(DataProvider.COL_COUNT, 0);
+        getContentResolver().update(Uri.withAppendedPath(DataProvider.CONTENT_URI_PROFILE, profileId), values, null, null);
+        super.onPause();
+    }
 
-	@Override
-	protected void onDestroy() {
-		unregisterReceiver(registrationStatusReceiver);
-		gcmUtil.cleanup();
-		super.onDestroy();
-	}
-	
-	//--------------------------------------------------------------------------------
-	
-	private BroadcastReceiver registrationStatusReceiver = new  BroadcastReceiver() {
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(registrationStatusReceiver);
+        gcmUtil.cleanup();
+        super.onDestroy();
+    }
 
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			if (intent != null && Common.ACTION_REGISTER.equals(intent.getAction())) {
-				switch (intent.getIntExtra(Common.EXTRA_STATUS, 100)) {
-				case Common.STATUS_SUCCESS:
-					getActionBar().setSubtitle("online");
-					sendBtn.setEnabled(true);
-					break;
-					
-				case Common.STATUS_FAILED:
-					getActionBar().setSubtitle("offline");					
-					break;					
-				}
-			}
-		}
-	};	
+    //--------------------------------------------------------------------------------
+
+    private BroadcastReceiver registrationStatusReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null && Common.ACTION_REGISTER.equals(intent.getAction())) {
+                switch (intent.getIntExtra(Common.EXTRA_STATUS, 100)) {
+                    case Common.STATUS_SUCCESS:
+                        getActionBar().setSubtitle("online");
+                        sendBtn.setEnabled(true);
+                        break;
+
+                    case Common.STATUS_FAILED:
+                        getActionBar().setSubtitle("offline");
+                        break;
+                }
+            }
+        }
+    };
 
 }

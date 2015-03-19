@@ -12,7 +12,7 @@ public interface Constants {
 	String API_KEY = "AIzaSyB5vQnIvMb-NunaxBII_IaW7s4s2pWkJjE";
 
 	String FROM = "email";
-	String REG_ID = "registration_id";
+	String REG_ID = "regId";
 	String MSG = "msg";
 	String TO = "to";
 	
