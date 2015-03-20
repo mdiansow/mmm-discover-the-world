@@ -13,7 +13,7 @@ public interface Constants {
     /**
      * Google API project id registered to use GCM.
      */
-    String SENDER_ID = "604935025154-compute";
+    String SENDER_ID = "604935025154";
 
     /**
      * Google API android key
