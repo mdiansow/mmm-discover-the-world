@@ -79,7 +79,7 @@ public class MainActivityMap extends Activity implements LocationListener{
     }
 
     // methode afficher positions
-    public void createMarketOfPerson(double latitude, double longitude, Bitmap image, String email) {
+    public void createMarketOfPerson(double latitude, double longitude, Bitmap image, final String email) {
 
 
         Bitmap.Config conf = Bitmap.Config.ARGB_8888;
@@ -98,6 +98,13 @@ public class MainActivityMap extends Activity implements LocationListener{
                 .icon(BitmapDescriptorFactory.fromBitmap(bmp))
                 .anchor(0.5f, 1)
                 .title(email)).showInfoWindow();
+        gMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                Toast.makeText(MainActivityMap.this,"Bonjour "+email,Toast.LENGTH_LONG).show();
+                return true;
+            }
+        });
     }
 
     /**
