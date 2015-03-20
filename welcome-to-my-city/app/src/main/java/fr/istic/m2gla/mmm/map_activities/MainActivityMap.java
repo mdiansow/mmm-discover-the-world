@@ -132,7 +132,7 @@ public void onPause() {
      */
     public void abonnementGPS() {
         //On s'abonne
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,999999999,999999999, this);
     }
 
     /**

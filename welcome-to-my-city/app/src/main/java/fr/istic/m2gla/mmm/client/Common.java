@@ -78,7 +78,6 @@ public class Common extends Application {
 
     public static String getSenderId() {
         Log.i("mds", "Sender Id  " + Constants.SENDER_ID);
-        Log.i("mds", "Prefs " + prefs);
         return prefs.getString("sender_id_pref", Constants.SENDER_ID);
     }
 //
