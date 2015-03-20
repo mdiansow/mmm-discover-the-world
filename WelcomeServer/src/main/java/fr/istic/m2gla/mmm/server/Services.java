@@ -34,9 +34,16 @@ public class Services {
         for (Entity e : contactEntities) {
             String email = String.valueOf(e.getProperty("email"));
             String regId = String.valueOf(e.getProperty("regId"));
-            double latitude = (double) e.getProperty("latitude");
-            double longitude = (double) e.getProperty("longitude");
+            double latitude = 0.0;
+            if (e.hasProperty("latitude")) {
+                latitude = (double) e.getProperty("latitude");
+            }
+            double longitude = 0.0;
+            if (e.hasProperty("longitude")) {
+                longitude = (double) e.getProperty("longitude");
+            }
             Contact c = new Contact(email, regId, latitude, longitude);
+
             contacts.add(c);
         }
         Key contactKey = KeyFactory.createKey("Contact", mail);
