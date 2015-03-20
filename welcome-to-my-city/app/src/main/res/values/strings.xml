@@ -18,11 +18,11 @@
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
         <item >Profil</item>
-        <item >Rechercher personne</item>
         <item >Tchat</item>
         <item >Carte</item>
-        <item >Fonctionnalités4</item>
-        <item >Fonctionnalités5</item>
+        <item >Rechercher personnes</item>
+        <item >Recherche monuments</item>
+        <item >Recherche hôtels</item>
     </string-array>
     
     <!-- Nav Drawer List Item Icons -->
@@ -38,12 +38,6 @@
     
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
-
-
-
-
-
-
 
 
 </resources>

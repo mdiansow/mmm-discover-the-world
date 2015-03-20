@@ -61,9 +61,9 @@ public class MainActivity2 extends Activity {
 		// Home
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
 		// Find People
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1), true, "2"));
 		// Photos
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1), true, "2"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
 		// Communities, Will add a counter here
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
 		// Pages
@@ -168,13 +168,15 @@ public class MainActivity2 extends Activity {
             //MAP
 			break;
 		case 1:
-			fragment = new FindPeopleFragment();
-			break;
+            fragment = new PhotosFragment();
+
+            break;
 		case 2:
-			fragment = new PhotosFragment();
-			break;
+            fragment = new CommunityFragment();
+
+            break;
 		case 3:
-			fragment = new CommunityFragment();
+            fragment = new FindPeopleFragment();
 			break;
 		case 4:
 			fragment = new PagesFragment();
