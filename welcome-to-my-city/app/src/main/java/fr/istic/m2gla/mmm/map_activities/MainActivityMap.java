@@ -214,9 +214,11 @@ public void onPause() {
 
         @Override
         protected void onPostExecute(Contact[] coordonnees) {
-            for (Contact userCoordinates : coordonnees){
-                Bitmap bitmapImg = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.person), 100, 75, true);
-                createMarketOfPerson(userCoordinates.getLatitude(), userCoordinates.getLongitude(), bitmapImg, userCoordinates.getEmail());
+            if(coordonnees != null && coordonnees.length > 0 ) {
+                for (Contact userCoordinates : coordonnees) {
+                    Bitmap bitmapImg = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.person), 100, 75, true);
+                    createMarketOfPerson(userCoordinates.getLatitude(), userCoordinates.getLongitude(), bitmapImg, userCoordinates.getEmail());
+                }
             }
         }
 
