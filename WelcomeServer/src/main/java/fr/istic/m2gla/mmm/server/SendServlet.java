@@ -56,23 +56,12 @@ public class SendServlet extends HttpServlet {
                 .addData("message", msg) //you can get this message on client side app
                 .build();
 
-//        //Use this code to send notification message to a single device
-//        Result result = sender.send(message,
-//                "APA91bEbKqwTbvvRuc24vAYljcrhslOw-jXBqozgH8C2OB3H8R7U00NbIf1xp151ptweX9VkZXyHMik022cNrEETm7eM0Z2JnFksWEw1niJ2sQfU3BjQGiGMq8KsaQ7E0jpz8YKJNbzkTYotLfmertE3K7RsJ1_hAA",
-//                1);
+        Sender sender = new Sender(Constants.API_KEY);
 
-        Sender sender = new Sender(Constants.SENDER_ID);
-//        Message message = new Message.Builder()
-////			.delayWhileIdle(true)
-//                .addData(Constants.TO, to).addData(Constants.FROM, from).addData(Constants.MSG, msg)
-//                .build();
         logger.log(Level.FINE, "Message\t" + message);
 
         try {
             Result result = sender.send(message, regId, 5);
-/*			List<String> regIds = new ArrayList<String>();
-            regIds.add(regId);
-			MulticastResult result = sender.send(message, regIds, 5);*/
 
             Date date = new Date();
             Key messageKey = KeyFactory.createKey("Message", from);
