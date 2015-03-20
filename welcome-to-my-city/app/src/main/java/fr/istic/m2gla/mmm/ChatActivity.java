@@ -12,12 +12,15 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -40,6 +43,7 @@ public class ChatActivity extends Activity implements MessagesFragment.OnFragmen
     private GcmUtil gcmUtil;
 
     private AtomicInteger msgId = new AtomicInteger();
+    private GoogleCloudMessaging gcm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,27 +124,12 @@ public class ChatActivity extends Activity implements MessagesFragment.OnFragmen
                 String msg = "";
                 try {
 
-                    Bundle data = new Bundle();
-                    data.putString("message", params[0]);
-
-                    /*if (params[1].equals("Echo")) {
-                        data.putString("action", "fr.istic.m2gla.mmm.ECHO");
-                    } else if (params[1].equals("Broadcast")) {
-                        data.putString("action", "fr.istic.m2gla.mmm.BROADCAST");
-                    } else if (params[1].equals("Notification")) {
-                        data.putString("action", "fr.istic.m2gla.mmm.NOTIFICATION");
-                    }*/
-
-
-                    String id = Integer.toString(msgId.incrementAndGet());
-                    data.putString("msgID", id);
-                    // gcm.send(Globals.GCM_SENDER_ID + "@gcm.googleapis.com", id, Globals.GCM_TIME_TO_LIVE, data);
-
-
                     msg = "Sent message";
 
 
                     ServerUtilities.send(txt, profileEmail);
+
+                    Log.i("mds", "After send message");
 
                     ContentValues values = new ContentValues(2);
                     values.put(DataProvider.COL_MSG, txt);

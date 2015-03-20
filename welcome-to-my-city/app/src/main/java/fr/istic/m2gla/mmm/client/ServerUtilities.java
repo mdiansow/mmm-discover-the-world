@@ -88,8 +88,8 @@ public final class ServerUtilities {
         params.put(Common.FROM, Common.getPreferredEmail());
         params.put(Common.TO, to);
 
-        Log.i("mds", "Server post\t" + msg);
         post(serverUrl, params, MAX_ATTEMPTS);
+        Log.i("mds", "Server post\t" + msg);
     }
 
     /**
