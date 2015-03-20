@@ -124,16 +124,12 @@ public class ChatActivity extends Activity implements MessagesFragment.OnFragmen
                 String msg = "";
                 try {
 
-<<<<<<< HEAD
-=======
                     Bundle data = new Bundle();
                     data.putString("message", params[0]);
                     String id = Integer.toString(msgId.incrementAndGet());
                     data.putString("msgID", id);
                     // gcm.send(Globals.GCM_SENDER_ID + "@gcm.googleapis.com", id, Globals.GCM_TIME_TO_LIVE, data);
 
-
->>>>>>> 34fe015a7d9ade661fe6877b00f279c142b02955
                     msg = "Sent message";
 
 
