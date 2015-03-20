@@ -217,6 +217,8 @@ public void onPause() {
                     Bitmap bitmapImg = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.person), 100, 75, true);
                     createMarketOfPerson(userCoordinates.getLatitude(), userCoordinates.getLongitude(), bitmapImg, userCoordinates.getEmail());
                 }
+                final LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
             }
         }
 
