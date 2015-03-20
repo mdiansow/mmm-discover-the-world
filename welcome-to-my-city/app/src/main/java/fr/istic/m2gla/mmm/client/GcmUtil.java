@@ -183,6 +183,7 @@ public class GcmUtil {
     private void broadcastStatus(boolean status) {
         Intent intent = new Intent(Common.ACTION_REGISTER);
         intent.putExtra(Common.EXTRA_STATUS, status ? Common.STATUS_SUCCESS : Common.STATUS_FAILED);
+        if(ctx != null)
         ctx.sendBroadcast(intent);
     }
 
