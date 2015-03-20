@@ -18,7 +18,7 @@ public class GcmUtil {
 
     private static final String TAG = "GcmUtil";
 
-    public static final String PROPERTY_REG_ID = "AIzaSyB5vQnIvMb-NunaxBII_IaW7s4s2pWkJjE";
+    public static final String PROPERTY_REG_ID = "registration_id";
     private static final String PROPERTY_APP_VERSION = "appVersion";
     private static final String PROPERTY_ON_SERVER_EXPIRATION_TIME = "onServerExpirationTimeMs";
 
@@ -40,8 +40,8 @@ public class GcmUtil {
         ctx = applicationContext;
         prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 
-        String regid = getRegistrationId();
-        if (regid.length() == 0) {
+        String regId = getRegistrationId();
+        if (regId.length() == 0) {
             registerBackground();
         } else {
             broadcastStatus(true);

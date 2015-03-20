@@ -61,7 +61,7 @@ public class SendServlet extends HttpServlet {
 //                "APA91bEbKqwTbvvRuc24vAYljcrhslOw-jXBqozgH8C2OB3H8R7U00NbIf1xp151ptweX9VkZXyHMik022cNrEETm7eM0Z2JnFksWEw1niJ2sQfU3BjQGiGMq8KsaQ7E0jpz8YKJNbzkTYotLfmertE3K7RsJ1_hAA",
 //                1);
 
-        Sender sender = new Sender(Constants.API_KEY);
+        Sender sender = new Sender(Constants.SENDER_ID);
 //        Message message = new Message.Builder()
 ////			.delayWhileIdle(true)
 //                .addData(Constants.TO, to).addData(Constants.FROM, from).addData(Constants.MSG, msg)
