@@ -1,8 +1,6 @@
 package fr.istic.m2gla.mmm.map_activities;
 
 import android.app.Activity;
-import android.content.ContentValues;
-import android.database.SQLException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -100,13 +98,7 @@ public class MainActivityMap extends Activity implements LocationListener{
                 .icon(BitmapDescriptorFactory.fromBitmap(bmp))
                 .anchor(0.5f, 1)
                 .title(email)).showInfoWindow();
-        gMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                Toast.makeText(MainActivityMap.this,"Bonjour "+email,Toast.LENGTH_LONG).show();
-                return true;
-            }
-        });
+
     }
 
     /**
@@ -167,7 +159,7 @@ public void onPause() {
         final LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         Bitmap bitmapImg = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.person), 100, 75, true);
         createMarketOfPerson(location.getLatitude(), location.getLongitude(), bitmapImg, null);
-        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+        gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
         //marker.setPosition(latLng);
     }
 
